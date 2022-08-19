@@ -1,5 +1,7 @@
 ﻿using ItDevRisk.Domain.Entities;
+using ItDevRisk.Domain.Mapper;
 using ItDevRisk.Domain.Specifications;
+using ItDevRisk.Domain.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Globalization;
@@ -12,25 +14,18 @@ namespace ItDevRisk.Domain.Services
     {
         public List<Trade> GetTrades()
         {
-            DateTime.TryParse(Console.ReadLine().ToString(),
-                out DateTime referenceDate);
-            var tradeCount = Convert.ToInt32(Console.ReadLine());
-            var tradeStringList = new List<string>();
+            var viewModel = new TradeViewModel();            
+            viewModel.ReferenceDate = Console.ReadLine().ToString();
+
+            var tradeCount = Convert.ToInt32(Console.ReadLine());                       
 
             var tradeList = new List<Trade>();
 
             for (int i = 1; i <= tradeCount; i++)
-            {
-                tradeStringList.Clear();
-                tradeStringList.AddRange(Console.ReadLine().ToString().Split(' ').ToList());
+            {                
+                viewModel.TradeString = Console.ReadLine().ToString();
 
-                double.TryParse(tradeStringList[0], out double convertedValue);
-
-                var cultureInfo = new CultureInfo("en-US");
-                var nextPaymentDate = DateTime.Parse(tradeStringList[2], cultureInfo);
-
-                var trade = new Trade(convertedValue, tradeStringList[1],
-                    referenceDate, nextPaymentDate);
+                var trade = viewModel.ToTrade();
 
                 Categorize(trade);
 
