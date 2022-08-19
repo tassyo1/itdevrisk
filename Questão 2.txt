@@ -1,0 +1,7 @@
+Seria necessário receber mais um input, separado por espaço, na terceira linha, onde começam os itens de trade após 
+cada data de "next pending payment". Tendo o valor "1" ou "0": 1 para "isPoliticallyExposed" igual a true, e
+0 para false. Criaria o item "PEP" no enum "ECategory.cs". Criaria uma classe  de especificação(PepTradeSpecification.cs)
+com o método "isSatisfiedBy" verificando se "isPoliticallyExposed" da classe Trade(ela implementa "ITrade.cs")é
+igual a true.Criaria o método "CategorizePep" na "Trade.cs". Por fim, colocaria uma condição no início do método
+ "Categorize" da classe "TradeService.cs", sendo
+essa condição verdadeira, chamaria o "CategorizePep".
